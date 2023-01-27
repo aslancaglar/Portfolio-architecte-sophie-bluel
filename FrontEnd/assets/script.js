@@ -31,7 +31,9 @@ async function getWorks() {
 
     function filterObj() {
         const result = works.filter(category => category.category.name == "Objets");
+        works.pop(!result);
         console.log(result);
+        console.log(works);
     }
 }
 
