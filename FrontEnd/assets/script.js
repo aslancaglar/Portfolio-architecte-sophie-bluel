@@ -1,3 +1,5 @@
+let response = await fetch('http://localhost:5678/api/works');
+
 let works;
 
 async function getWorks() {
@@ -80,3 +82,13 @@ async function getCategories() {
 
 getCategories()
 */
+
+const xhttp = new XMLHttpRequest();
+xhttp.open("POST", "http://localhost:5678/api/users/login");
+xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhttp.send(JSON.stringify({
+    "username": "username",
+    "password": "password"
+}));
+
+console.log(xhttp);
