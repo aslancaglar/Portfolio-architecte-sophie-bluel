@@ -1,5 +1,3 @@
-let response = await fetch('http://localhost:5678/api/works');
-
 let works;
 
 async function getWorks() {
