@@ -1,3 +1,5 @@
+let response = await fetch('http://localhost:5678/api/works');
+
 let works;
 
 async function getWorks() {
@@ -63,20 +65,25 @@ getWorks();
 /*
 async function getCategories() {
     let categories;
-
     const res = await fetch('http://localhost:5678/api/categories')
-
     categories = await res.json();
-
     let categoriesList = document.querySelector(".projectCategories");
     for (let i = 0; i < categories.length; i++) {
         let categoriesItem = document.createElement("li");
         categoriesItem.innerText = categories[i].name;
         categoriesList.appendChild(categoriesItem);
     }
-
     console.log(categories);
 }
-
 getCategories()
 */
+
+const xhttp = new XMLHttpRequest();
+xhttp.open("POST", "http://localhost:5678/api/users/login");
+xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhttp.send(JSON.stringify({
+    "username": "username",
+    "password": "password"
+}));
+
+console.log(xhttp);
