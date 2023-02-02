@@ -7,33 +7,47 @@ async function getWorks() {
 
     works = await res.json();
 
+    console.log(works);
 
+    function createGalery(work) {
+        const gallery = document.querySelector(".gallery");
+        for (let i = 0; i < work.length; i++) {
+            const fig = document.createElement("figure");
+            const figCaptions = document.createElement("figcaption");
+            figCaptions.innerText = work[i].title;
+            const workImg = document.createElement("img");
+            workImg.src = work[i].imageUrl;
+            workImg.crossOrigin = "anonymous";
+            gallery.appendChild(fig);
+            fig.appendChild(workImg);
+            fig.appendChild(figCaptions);
 
-    const gallery = document.querySelector(".gallery");
-    for (let i = 0; i < works.length; i++) {
-        const fig = document.createElement("figure");
-        const figCaptions = document.createElement("figcaption");
-        figCaptions.innerText = works[i].title;
-        const workImg = document.createElement("img");
-        workImg.src = works[i].imageUrl;
-        workImg.crossOrigin = "anonymous";
-        gallery.appendChild(fig);
-        fig.appendChild(workImg);
-        fig.appendChild(figCaptions);
+            //console.log(works[i].category.name = "Objets");
+            //console.log(works[i]);
+        }
+
         const boutonFiltrerObj = document.querySelector("#objets");
-        boutonFiltrerObj.addEventListener("click", filterObj);
-        //console.log(works[i].category.name = "Objets");
-        //console.log(works[i]);
+        boutonFiltrerObj.addEventListener("click", function() { filterWorks("Objets") });
+        const boutonFiltrerApt = document.querySelector("#appartements");
+        boutonFiltrerApt.addEventListener("click", function() { filterWorks("Appartements") });
+        const boutonFiltrerHotel = document.querySelector("#hotelResto");
+        boutonFiltrerHotel.addEventListener("click", function() { filterWorks("Hotels & restaurants") });
+        const boutonTous = document.querySelector("#tous");
+        boutonTous.addEventListener("click", function() {
+            filterTous();
+        });
+    }
+    createGalery(works);
 
-
-
+    function filterWorks(filtredCategory) {
+        const Result = works.filter(category => category.category.name == filtredCategory);
+        const gallery = document.querySelector(".gallery").innerHTML = "";
+        createGalery(Result);
     }
 
-    function filterObj() {
-        const result = works.filter(category => category.category.name == "Objets");
-        works.pop(!result);
-        console.log(result);
-        console.log(works);
+    function filterTous() {
+        const gallery = document.querySelector(".gallery").innerHTML = "";
+        createGalery(works);
     }
 }
 
