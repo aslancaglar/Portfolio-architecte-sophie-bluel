@@ -1,3 +1,5 @@
+let response = await fetch('http://localhost:5678/api/works');
+
 let works;
 
 async function getWorks() {
@@ -74,6 +76,7 @@ function loginMe() {
 
 }
 
+<<<<<<< HEAD
 const mail = document.getElementById("email");
 const password = document.getElementById("password");
 const submitBnt = document.querySelector(".submitBtn");
@@ -101,3 +104,17 @@ async function loginMe() {
 loginMe();
 
 */
+=======
+getCategories()
+*/
+
+const xhttp = new XMLHttpRequest();
+xhttp.open("POST", "http://localhost:5678/api/users/login");
+xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhttp.send(JSON.stringify({
+    "username": "username",
+    "password": "password"
+}));
+
+console.log(xhttp);
+>>>>>>> 420353eafeb2e7d6841960ec1d0c49da3b62a61e
