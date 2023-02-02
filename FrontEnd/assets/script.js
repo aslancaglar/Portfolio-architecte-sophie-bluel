@@ -1,5 +1,3 @@
-let response = await fetch('http://localhost:5678/api/works');
-
 let works;
 
 async function getWorks() {
@@ -62,28 +60,44 @@ async function getWorks() {
 
 
 getWorks();
-/*
-async function getCategories() {
-    let categories;
-    const res = await fetch('http://localhost:5678/api/categories')
-    categories = await res.json();
-    let categoriesList = document.querySelector(".projectCategories");
-    for (let i = 0; i < categories.length; i++) {
-        let categoriesItem = document.createElement("li");
-        categoriesItem.innerText = categories[i].name;
-        categoriesList.appendChild(categoriesItem);
-    }
-    console.log(categories);
+
+
+function loginMe() {
+    //e.preventDefault();
+    fetch('http://localhost:5678/api/users/login', {
+        method: "POST",
+        body: JSON.stringify({
+            email: "sophie.bluel@test.tld",
+            password: "S0phie"
+        }),
+    })
+
 }
-getCategories()
+
+const mail = document.getElementById("email");
+const password = document.getElementById("password");
+const submitBnt = document.querySelector(".submitBtn");
+submitBnt.addEventListener("click", logintest);
+
+
+function logintest() {
+    console.log(mail.value, password.value);
+}
+
+logintest();
+
+/*
+
+async function loginMe() {
+    const loginData = await fetch('http://localhost:5678/api/users/login', {
+        method: "POST",
+        body: JSON.stringify({
+            email: "sophie.bluel@test.tld",
+            password: "S0phie"
+        })
+    })
+}
+
+loginMe();
+
 */
-
-const xhttp = new XMLHttpRequest();
-xhttp.open("POST", "http://localhost:5678/api/users/login");
-xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-xhttp.send(JSON.stringify({
-    "username": "username",
-    "password": "password"
-}));
-
-console.log(xhttp);

@@ -307,3 +307,34 @@ footer nav ul {
     border: 2px solid #1D6154;
     border-radius: 30px;
 }
+
+#login {
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#login h2 {
+    margin: 50px 0 50px 0;
+}
+
+#password,
+#email {
+    margin: 5px 0 15px 0;
+    border: none;
+    width: 379px;
+    height: 51px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.submitBtn {
+    padding: 10px;
+    border: none;
+}
