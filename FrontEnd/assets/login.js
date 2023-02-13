@@ -22,9 +22,9 @@ let button = form.submit.addEventListener("click", (e) => {
         })
         .then((response) => response.json())
 
-    .then((response) => {
-        console.log(response);
-        console.log(response);
+    .then((data) => {
+        console.log(data);
+
 
         if (data.message) {
             alert("Identifiant ou mot de passe incorrect");
