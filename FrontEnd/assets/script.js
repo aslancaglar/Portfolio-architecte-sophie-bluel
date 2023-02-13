@@ -55,17 +55,25 @@ getWorks().then(works => {
     createGalery(works);
 });
 
-function loginMe() {
-    //e.preventDefault();
-    fetch('http://localhost:5678/api/users/login', {
-        method: "POST",
-        body: JSON.stringify({
-            email: "sophie.bluel@test.tld",
-            password: "S0phie"
-        }),
-    })
 
+
+
+
+
+/*
+let users;
+
+async function getUsers() {
+    const rest = await fetch('http://localhost:5678/api/users/login')
+
+    users = await rest.json();
+
+    return users;
+    console.log(users);
 }
+
+getUsers();
+
 
 
 
