@@ -21,18 +21,27 @@ let button = form.submit.addEventListener("click", (e) => {
             }),
         })
         .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            localStorage.setItem("Token", data.token);
 
-    .then((data) => {
-        console.log(data);
 
+            if (data.message) {
+                alert("Identifiant ou mot de passe incorrect");
+            } else {
+                window.location = "http://127.0.0.1:5500/FrontEnd/index.html";
 
-        if (data.message) {
-            alert("Identifiant ou mot de passe incorrect");
-        } else {
-            window.location = "http://127.0.0.1:5500/FrontEnd/index.html";
-
-        }
-    })
+            }
+        })
 
 
 });
+
+console.log(localStorage.getItem("Token"));
+
+
+
+
+
+
+//localStorage.setItem(token, "test");

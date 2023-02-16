@@ -57,8 +57,49 @@ getWorks().then(works => {
 
 
 
+function createWorkList(works) {
 
 
+    const workList = document.querySelector(".workList");
+    for (let i = 0; i < works.length; i++) {
+        const workWrapper = document.createElement("div");
+        const fig = document.createElement("figure");
+        const deleteIcon = document.createElement("span");
+        deleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+        deleteIcon.classList.add("deleteIcon");
+        const editMe = document.createElement("button");
+        editMe.innerText = "éditer";
+        editMe.classList.add("editIcon");
+        const workImg = document.createElement("img");
+        workWrapper.classList.add("workWrapper");
+        workImg.src = works[i].imageUrl;
+        workImg.crossOrigin = "anonymous";
+        workList.appendChild(workWrapper);
+        workWrapper.appendChild(deleteIcon);
+        workWrapper.appendChild(fig);
+        fig.appendChild(workImg);
+        workWrapper.appendChild(editMe);
+
+    };
+};
+getWorks().then(works => {
+    createWorkList(works);
+});
+
+
+const editGaleryBtn = document.getElementById('editGalery');
+editGaleryBtn.addEventListener("click", openModal);
+
+function openModal() {
+    document.getElementById("editWorks").style.display = "flex";
+};
+
+const closeModalBtn = document.getElementById('closeBtn');
+closeModalBtn.addEventListener("click", closeModal);
+
+function closeModal() {
+    document.getElementById("editWorks").style.display = "none";
+};
 
 /*
 let users;

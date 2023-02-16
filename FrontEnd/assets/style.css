@@ -3,6 +3,10 @@
    License: none (public domain)
 */
 
+* {
+    box-sizing: border-box;
+}
+
 html,
 body,
 div,
@@ -274,7 +278,8 @@ li:hover {
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+input[type="submit"],
+.btn {
     font-family: 'Syne';
     font-weight: 700;
     color: white;
@@ -336,5 +341,94 @@ footer nav ul {
 
 .submitBtn {
     padding: 10px;
+    border: none;
+}
+
+.modalEditWorks {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.workList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 1px solid #B3B3B3;
+    padding: 0 0 30px 0;
+}
+
+.modalWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    width: 630px;
+    min-height: 500px;
+    padding: 50px 100px;
+    border-radius: 10px;
+}
+
+.modalWrapper h2 {
+    text-align: center;
+    color: #000000;
+    font-family: "Work Sans";
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+#closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.modalWrapper .btn {
+    padding: 10px 20px;
+    width: 237px;
+    border: none;
+}
+
+.workWrapper {
+    position: relative;
+    flex-basis: 78px;
+}
+
+.workWrapper .deleteIcon {
+    display: block;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    padding: 3px;
+    border-radius: 2px;
+}
+
+.editIcon {
+    background-color: #ffffff;
+    border: none;
+}
+
+.workWrapper .deleteIcon i {
+    color: #ffffff;
+}
+
+.workWrapper figure img {
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.deleteAll {
+    color: red;
+    background-color: #ffffff;
     border: none;
 }
