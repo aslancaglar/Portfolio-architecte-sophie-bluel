@@ -5,6 +5,9 @@ const form = {
 };
 
 
+
+
+
 let button = form.submit.addEventListener("click", (e) => {
     e.preventDefault();
     const login = "http://localhost:5678/api/users/login";
@@ -37,11 +40,9 @@ let button = form.submit.addEventListener("click", (e) => {
 
 });
 
-console.log(localStorage.getItem("Token"));
+const verifyToken = localStorage.getItem("Token");
+console.log(verifyToken);
 
-
-
-
-
-
-//localStorage.setItem(token, "test");
+if (verifyToken) {
+    console.log("Teken is ok");
+};
