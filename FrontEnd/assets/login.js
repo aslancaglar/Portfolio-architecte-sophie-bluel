@@ -15,7 +15,7 @@ let button = form.submit.addEventListener("click", (e) => {
     fetch(login, {
             method: "POST",
             headers: {
-                Accept: "application/json, text/plain, */*",
+                Accept: "application/json, text/plain",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -25,7 +25,7 @@ let button = form.submit.addEventListener("click", (e) => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            console.log('data ==> ', data);
             localStorage.setItem("Token", data.token);
 
 
@@ -44,5 +44,5 @@ const verifyToken = localStorage.getItem("Token");
 console.log(verifyToken);
 
 if (verifyToken) {
-    console.log("Teken is ok");
+    //console.log("Token is ok");
 };

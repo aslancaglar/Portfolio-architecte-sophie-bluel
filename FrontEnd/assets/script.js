@@ -157,17 +157,22 @@ function closeModal() {
 };
 
 const verifyToken = localStorage.getItem("Token");
-const editBar = document.querySelectorAll(".editMode");
+const editMode = document.querySelectorAll(".editMode");
+const loginBtn = document.getElementById("loginBnt");
 
 
 
-for (let i = 0; i < editBar.length; i++) {
+for (let i = 0; i < editMode.length; i++) {
     if (verifyToken) {
-        editBar[i].style.display = "block";
+        editMode[i].style.display = "block";
+        loginBtn.style.display = "none";
     } else {
-        editBar[i].style.display = "none";
+        editMode[i].style.display = "none";
+        loginBtn.style.display = "block";
     }
 };
+
+
 
 
 
@@ -177,20 +182,99 @@ function addPhotos() {
     modalScreen2.classList.add("modalScreen2");
     const addPhotoTitle = document.createElement("h2");
     addPhotoTitle.innerText = "Ajout photo";
+    const imgWrapper = document.createElement("div");
+    imgWrapper.classList.add("imgWrapper");
+    const previewImg = document.createElement("img");
+    previewImg.setAttribute("id", "previewSelectedImage");
+    const imgIcon = document.createElement("img");
+    imgIcon.setAttribute("src", "assets/icons/imgIcon.png");
+    imgIcon.classList.add("imgIcon");
+    const fileLabel = document.createElement("label");
+    fileLabel.setAttribute("for", "addFileInput");
+    fileLabel.innerText = "+ Ajouter photo";
     const imageSelect = document.createElement("input");
     imageSelect.type = "file";
+    imageSelect.classList.add("addImg");
+    imageSelect.setAttribute("id", "addFileInput")
+    imageSelect.addEventListener("change", (event) => {
+        /**
+         * Get the selected files.
+         */
+        previewImg.style = "display : block";
+        imgSizeType.style = "display : none";
+        fileLabel.style = "display : none";
+        imgIcon.style = "display : none";
+        const imageFiles = event.target.files;
+        /**
+         * Count the number of files selected.
+         */
+        const imageFilesLength = imageFiles.length;
+        /**
+         * If at least one image is selected, then proceed to display the preview.
+         */
+        if (imageFiles[0].type !== "image/jpeg" && imageFiles[0].type !== "image/png") {
+            alert("jpg ou png obligatoire");
+            previewImg.style = "display : none";
+            imgSizeType.style = "display : block";
+            fileLabel.style = "display : block";
+            imgIcon.style = "display : block";
+        }
+
+        if (imageFilesLength > 0) {
+            /**
+             * Get the image path.
+             */
+
+            const imageSrc = URL.createObjectURL(imageFiles[0]);
+            /**
+             * Select the image preview element.
+             */
+            previewImg.setAttribute("src", imageSrc);
+            /**
+             * Show the element by changing the display value to "block".
+             */
+            if (imageSrc) {
+                validBtn.style.color = "red";
+            }
+        };
+    });
+    const imgSizeType = document.createElement("span");
+    imgSizeType.innerText = "jpg, png : 4mo max";
+    const titleCategoryWrapper = document.createElement("div");
+    titleCategoryWrapper.classList.add("titleCategoryWrapper");
     const titleInput = document.createElement("input");
     titleInput.type = "text";
+    titleInput.setAttribute("id", "titleInput");
+    titleInput.addEventListener("keyup", () => console.log("test key"));
+    const titleLabel = document.createElement("label");
+    titleLabel.setAttribute("for", "titleInput");
+    titleLabel.innerText = "Titre";
     titleInput.classList.add("PhotoTitle");
+    const categoryLabel = document.createElement("label");
+    categoryLabel.setAttribute("for", "selectCategory");
+    categoryLabel.innerText = "Catégorie";
     const categorySelect = document.createElement("select");
+    categorySelect.classList.add("categorySelector");
+    categorySelect.setAttribute("id", "selectCategory")
+    const emptyOption = document.createElement("option");
+    emptyOption.setAttribute("value", " ");
     const validBtn = document.createElement("button");
     validBtn.innerText = "Valider";
     validBtn.classList.add("btn");
     modalWrapper.appendChild(modalScreen2);
     modalScreen2.appendChild(addPhotoTitle);
-    modalScreen2.appendChild(imageSelect);
-    modalScreen2.appendChild(titleInput);
-    modalScreen2.appendChild(categorySelect);
+    modalScreen2.appendChild(imgWrapper);
+    modalScreen2.appendChild(titleCategoryWrapper);
+    imgWrapper.appendChild(previewImg);
+    imgWrapper.appendChild(imgIcon);
+    imgWrapper.appendChild(imageSelect);
+    imgWrapper.appendChild(fileLabel);
+    imgWrapper.appendChild(imgSizeType);
+    titleCategoryWrapper.appendChild(titleLabel);
+    titleCategoryWrapper.appendChild(titleInput);
+    titleCategoryWrapper.appendChild(categoryLabel);
+    titleCategoryWrapper.appendChild(categorySelect);
+    categorySelect.appendChild(emptyOption);
     modalScreen2.appendChild(validBtn);
 
     async function getCategories() {
@@ -206,19 +290,22 @@ function addPhotos() {
     }
     getCategories();
 
+
+
     validBtn.addEventListener("click", function(event) {
         event.preventDefault();
         const title = titleInput.value;
         const category = categorySelect.value;
         const image = imageSelect.files[0];
-        console.log(image);
+
 
         const formData = new FormData();
         formData.append("image", image);
         formData.append("title", title);
         formData.append("category", category);
 
-        //console.log(formData);
+
+
 
 
         const response = fetch("http://localhost:5678/api/works", {
