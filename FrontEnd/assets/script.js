@@ -176,6 +176,8 @@ for (let i = 0; i < editMode.length; i++) {
 
 
 
+
+
 function addPhotos() {
     cleanWorkList(modalScreen1);
     const modalScreen2 = document.createElement("div");
@@ -196,6 +198,8 @@ function addPhotos() {
     imageSelect.type = "file";
     imageSelect.classList.add("addImg");
     imageSelect.setAttribute("id", "addFileInput")
+    imageSelect.setAttribute("name", "image");
+    imageSelect.addEventListener("input", testInput);
     imageSelect.addEventListener("change", (event) => {
         /**
          * Get the selected files.
@@ -225,7 +229,7 @@ function addPhotos() {
              * Get the image path.
              */
 
-            const imageSrc = URL.createObjectURL(imageFiles[0]);
+            imageSrc = URL.createObjectURL(imageFiles[0]);
             /**
              * Select the image preview element.
              */
@@ -233,8 +237,13 @@ function addPhotos() {
             /**
              * Show the element by changing the display value to "block".
              */
-            if (imageSrc) {
-                validBtn.style.color = "red";
+
+            if (imageSrc !== "") {
+
+                imageSrcCheck = true;
+
+            } else {
+                imageSrcCheck = false;
             }
         };
     });
@@ -243,9 +252,11 @@ function addPhotos() {
     const titleCategoryWrapper = document.createElement("div");
     titleCategoryWrapper.classList.add("titleCategoryWrapper");
     const titleInput = document.createElement("input");
+
     titleInput.type = "text";
     titleInput.setAttribute("id", "titleInput");
-    titleInput.addEventListener("keyup", () => console.log("test key"));
+    titleInput.setAttribute("name", "title");
+    titleInput.addEventListener("input", testInput);
     const titleLabel = document.createElement("label");
     titleLabel.setAttribute("for", "titleInput");
     titleLabel.innerText = "Titre";
@@ -254,10 +265,12 @@ function addPhotos() {
     categoryLabel.setAttribute("for", "selectCategory");
     categoryLabel.innerText = "Catégorie";
     const categorySelect = document.createElement("select");
+    categorySelect.addEventListener("input", testInput);
     categorySelect.classList.add("categorySelector");
-    categorySelect.setAttribute("id", "selectCategory")
+    categorySelect.setAttribute("id", "selectCategory");
+    categorySelect.setAttribute("name", "category")
     const emptyOption = document.createElement("option");
-    emptyOption.setAttribute("value", " ");
+    emptyOption.setAttribute("value", "");
     const validBtn = document.createElement("button");
     validBtn.innerText = "Valider";
     validBtn.classList.add("btn");
@@ -277,6 +290,13 @@ function addPhotos() {
     categorySelect.appendChild(emptyOption);
     modalScreen2.appendChild(validBtn);
 
+
+
+
+
+
+
+
     async function getCategories() {
         const response = await fetch("http://localhost:5678/api/categories");
         const categories = await response.json();
@@ -289,9 +309,50 @@ function addPhotos() {
         }
     }
     getCategories();
+    validBtn.disabled = true;
+    validBtn.style.backgroundColor = "gray";
+
+    function testInput() {
+        if (imageSelect.value != "" && titleInput.value != "" && categorySelect.value != "") {
+            validBtn.disabled = false;
+            validBtn.style.backgroundColor = "#1D6154";
+        } else {
+            validBtn.disabled = true;
+            validBtn.style.backgroundColor = "gray";
+        }
+    }
+
+    document.addEventListener(
+        "click",
+        function(event) {
+            // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
+            if (!event.target.closest(modalScreen2)) {
+                closeModal();
+            }
+        },
+        false
+    );
+
+    function closeModal() {
+        modalWrapper.style.display = "none";
+    }
 
 
 
+
+
+
+
+
+
+
+
+
+    /*
+        validBtn.disabled = true;
+        if (validBtn.disabled = true) {
+            validBtn.style.backgroundColor = "gray";
+        } */
     validBtn.addEventListener("click", function(event) {
         event.preventDefault();
         const title = titleInput.value;
@@ -317,3 +378,13 @@ function addPhotos() {
         });
     });
 };
+
+
+
+
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.localStorage.removeItem("Token");
+    window.location.replace("./index.html");
+});
