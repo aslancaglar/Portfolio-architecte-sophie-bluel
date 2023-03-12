@@ -205,7 +205,7 @@ imageSelect.addEventListener("change", (event) => {
 });
 
 // Check inputs
-validBtn.disabled = true;
+//validBtn.disabled = true;
 validBtn.style.backgroundColor = "gray";
 
 function testInput() {
@@ -213,10 +213,12 @@ function testInput() {
         validBtn.disabled = false;
         validBtn.style.backgroundColor = "#1D6154";
     } else {
-        validBtn.disabled = true;
+        //validBtn.disabled = true;
         validBtn.style.backgroundColor = "gray";
     }
 }
+
+
 
 // Upload a new work
 validBtn.addEventListener("click", function(event) {
@@ -224,19 +226,32 @@ validBtn.addEventListener("click", function(event) {
     const title = titleInput.value;
     const category = categorySelect.value;
     const image = imageSelect.files[0];
+    console.log(image);
+
+
 
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", title);
     formData.append("category", category);
 
-    const response = fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${localStorage.Token}`
-        },
-        body: formData,
-    });
+    if (image == undefined && title == false && category == false) {
+        alert("Veuillez remplir tous les champs requis")
+    } else if (category == false) {
+        alert("Choisissez une catégorie")
+    } else if (image == undefined) {
+        alert("Choisissez une image")
+    } else if (title == false) {
+        alert("Tapez un titre s'il vous plait")
+    } else {
+        const response = fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${localStorage.Token}`
+            },
+            body: formData,
+        });
+    }
 });
 
 // Open Close Modal
