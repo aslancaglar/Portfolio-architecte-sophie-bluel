@@ -5,9 +5,6 @@ const form = {
 };
 
 
-
-
-
 let button = form.submit.addEventListener("click", (e) => {
     e.preventDefault();
     const login = "http://localhost:5678/api/users/login";
@@ -32,7 +29,7 @@ let button = form.submit.addEventListener("click", (e) => {
             if (data.message) {
                 alert("Identifiant ou mot de passe incorrect");
             } else {
-                window.location = "http://127.0.0.1:5500/FrontEnd/index.html";
+                window.location = "/FrontEnd/index.html";
 
             }
         })
